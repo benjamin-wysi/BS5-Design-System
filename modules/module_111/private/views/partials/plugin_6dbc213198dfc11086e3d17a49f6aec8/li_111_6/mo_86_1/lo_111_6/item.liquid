@@ -1,0 +1,23 @@
+{%- raw -%}
+  {%- comment -%} If this item has children and is on the top level, output the item, and then go get its children. This layout does not support more than 2 levels. The second level is outputted later on in the markup by the mega_menu partial.{%- endcomment -%}
+  {%- if this['is_parent'] and _level == 1 -%}
+    <li class="ml-2 mt-2">
+      <div>
+        <button aria-expanded="false" id="button_{{sitegurus_ui_uniq_component_id}}_{{this.forced_id}}" data-accordion-target="#{{sitegurus_ui_uniq_component_id}}_{{this['forced_id']}}" aria-controls="{{sitegurus_ui_uniq_component_id}}_{{this['forced_id']}}" class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 lg:w-auto hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-600 lg:p-2 dark:text-gray-400 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700" type="button">{{this['link_name']}} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+      </div>
+    </li>
+  {%- elsif _level == 1 -%}
+    {%- comment -%} Else output first level single item {%- endcomment -%}
+    <li {% if this['link_url'] == context.location.pathname %}aria-current="page"{% endif %} class="ml-2 first:ml-0 mt-2">
+      <a class="{% if this['link_url'] == context.location.pathname %}
+        {% comment %} Top level current link {% endcomment %}
+        block py-2 pr-4 pl-3 border-b border-gray-100 text-primary-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-600 lg:p-2 dark:text-primary-500 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-primary-500 lg:dark:hover:bg-transparent dark:border-gray-700
+      {% else %}
+        {% comment %} Top level standard link {% endcomment %}
+        block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-600 lg:p-2 dark:text-gray-400 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700
+      {% endif %}" {% if this['link_target'] %} target="{{this['link_target']}}"{% endif %} href="{{this['link_url']}}">
+        {{this['link_name']}}
+      </a>
+    </li>
+  {%- endif -%}
+{%- endraw -%}

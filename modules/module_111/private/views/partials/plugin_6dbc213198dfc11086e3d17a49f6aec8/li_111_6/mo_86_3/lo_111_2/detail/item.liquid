@@ -1,0 +1,141 @@
+{% raw %}
+{% graphql author_results, item_ids: this['Author'], per_page: 2000 %}
+  query author_results($item_ids: [ID!]!, $per_page: Int!) {
+    records(
+      per_page: $per_page,
+      filter: {
+        id: {
+          value_in: $item_ids
+        }
+      }
+    ) {
+      results {
+        id
+        properties
+      }
+    }
+  }
+{% endgraphql %}
+{% assign author = author_results.records.results[0] %}
+
+<main class="bg-white dark:bg-gray-900">
+  <div class="pt-8 pb-16 lg:pt-16 lg:pb-24">
+    <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+      <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+        <header class="mb-4 lg:mb-6 not-format">
+          <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{this['Title']}}</h1>
+          <div class="text-base">
+            <address class="inline">
+              By
+              <a rel="author" class="text-gray-900 no-underline dark:text-white hover:underline" href="{{blog_list_page_url}}?module_field_3_4={{author.id}}&author_name={{author.properties.name | url_encode}}">{{author.properties.module_field_6_1}}</a>
+            </address>
+            in 
+            {% for category in this['category_array'] %}
+              <a href="{{blog_list_page_url}}?category={{context.exports.categories.data[category].id}}" class="text-gray-900 no-underline dark:text-white hover:underline">{{context.exports.categories.data[category].name  | replace: " ", "&nbsp;" -}}</a>
+              {%- assign position = forloop.index | plus: 1 -%}
+              {%- if this['category_array'].size == position -%}&nbsp;and{%- elsif forloop.last != true -%}, {% endif %}
+            {% endfor %}
+            on
+            <time pubdate class="uppercase" datetime="{{this['release_date'] | date: '%d %^b. %Y'}}" title="{{this['release_date'] | date: '%b %d %Y'}}">{{this['release_date'] | date: '%b %d %Y'}}</time>
+          </div>
+        </header>
+        <aside aria-label="Share social media">
+          <button data-s-g-social-feature="fbButton" class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            <svg
+              class="mr-2 w-4 h-4" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512">
+              <path
+                d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" />
+            </svg> Share
+          </button>
+          <button data-s-g-social-feature="tw" class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            <svg class="mr-2 w-4 h-4" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+            </svg>
+            Tweet
+          </button>
+          <button data-s-g-social-feature="clipboard"  class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            <svg class="mr-2 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+            </svg>
+            Copy link
+          </button>
+        </aside>
+        {{this['Content'] | html_safe }}
+      </article>
+      {% if sidebar == true %}
+        <aside class="hidden lg:block lg:w-72" aria-labelledby="sidebar-label">
+          {% capture sidebar %}layouts/modules/module_3/{{layout}}/sidebar{% endcapture %}
+          {%- include sidebar -%}
+        </aside>
+      {% endif %}
+    </div>
+  </div>
+</main>
+
+<aside aria-label="Related articles" class="bg-white dark:bg-gray-900">
+  {% graphql related_articles, category_array: this.category_array, id: this.id %}
+    query related_articles($category_array: [String!]=["00000"], $id: ID!){
+      records(
+        per_page: 4,
+        filter: {
+          table: {
+            value: "module_3"
+          }
+          properties: [
+            {
+              name: "category_array",
+              array_overlaps: $category_array 
+            }
+          ],
+          id: {
+            not_value_in: $id
+          }
+        },
+        sort: {
+          properties: {
+            name: "release_date",
+            order: DESC
+          }
+        }
+      ) {
+        results {
+          id
+          properties
+        }
+      }
+    }
+  {% endgraphql %}
+  {% if related_articles.records.results.size > 0 %}
+    <div class="px-4 mx-auto max-w-screen-xl pb-8 lg:pb-24">
+      <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Related articles</h2>
+      <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+        
+        {% for article in related_articles.records.results %}
+          <article class="max-w-xs">
+            <img src="{{article.properties.module_field_3_7 | asset_url}}" class="mb-5 rounded-lg" alt="{{article.properties.module_field_3_8}}">
+            <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+              <a href="/{{context.params.slug}}/{{article.properties.slug}}">{{article.properties.module_field_3_1}}</a>
+            </h2>
+            <p class="mb-4 font-light text-gray-500 dark:text-gray-400">{{article.properties.module_field_3_3}}</p>
+            <a href="/{{context.params.slug}}/{{article.properties.slug}}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
+              {% assign reading_time = article.properties.module_field_3_9 | strip_html | split: " " | size | divided_by: 238 %}
+              {% if reading_time == 0 %}
+                Read in 1 minute
+              {% else %}
+                Read in {{reading_time}} minutes
+              {% endif %}
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</aside>
+
+{% if context.exports.module_86.sitegurus_social_share_api != true %}
+  <script async id="sitegurus_social_share_api" src="{{'modules/module_86/js/sitegurus_social_share_api.js' | asset_url}}" charset="utf-8"></script>
+  {% assign sitegurus_social_share_api = true %}
+  {% export sitegurus_social_share_api, namespace: "module_86" %}
+{% endif %}
+{% endraw %}

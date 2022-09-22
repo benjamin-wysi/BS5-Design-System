@@ -1,0 +1,21 @@
+{%- raw -%}
+{% assign modulo = forloop.index | modulo: 2 %}
+{% assign penultimate_item = _per_page | minus: 2 %}
+
+<figure class="flex flex-col justify-center items-center p-8 text-center bg-gray-50 border-gray-200 md:p-12 dark:bg-gray-800 dark:border-gray-700 border-b {% if modulo == 1 %}lg:border-r{% endif %} {% if forloop.index0 == penultimate_item or forloop.last %}lg:border-b-0{% endif %}">
+  <blockquote class="mx-auto mb-8 max-w-2xl text-gray-500 dark:text-gray-400">
+    {{this['Quote'] | html_safe }}
+  </blockquote>
+  <figcaption class="flex justify-center items-center space-x-3">
+    {% if this['Image'] != blank %}
+      <img class="w-9 h-9 rounded-full" src="{{ this['Image'] | asset_url }}" alt="profile picture">
+    {% endif %}
+    <div class="space-y-0.5 font-medium dark:text-white text-left">
+      <div>{{this['name']}}</div>
+      {% if this['Job Title'] != blank %}
+        <div class="text-sm font-light text-gray-500 dark:text-gray-400">{{this['Job Title']}} {% if this['Company Name'] != blank %} at {{this['Company Name']}} {% endif %}</div>
+      {% endif %}
+    </div>
+  </figcaption>    
+</figure>
+{%- endraw -%}

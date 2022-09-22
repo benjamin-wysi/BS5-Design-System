@@ -1,0 +1,44 @@
+{% raw %}
+{%- if this['is_parent'] and _level == 1 -%}
+  <nav id="{{sitegurus_ui_uniq_component_id}}_{{this['forced_id']}}" aria-expanded="false" aria-labelledby="button_{{sitegurus_ui_uniq_component_id}}_{{this.forced_id}}" class="hidden selection:bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-600">
+    <div class="px-4 mx-auto max-w-screen-xl lg:px-6 py-2.5">
+      <div class="grid  text-gray-900 dark:text-white md:grid-cols-2 lg:grid-cols-4 ">
+        <ul class="grid md:grid-cols-2 lg:grid-cols-4 col-span-2 md:col-span-3">
+          {%- assign _next_level = _level | plus: 1 -%}
+          {%- include 'modules/siteglide_menu/get/get_items', level: _next_level, parent_id: this['forced_id'], item_layout: 'mega_menu' -%}
+        </ul>
+        <div class="col-span-1">
+          <div class="col-span-2 p-4 lg:col-span-1">
+            <h2 class="mb-2 font-semibold text-gray-900 dark:text-white">{{this['link_name']}}</h2>
+            <a href="{{this['link_url']}}" class="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-600 dark:text-primary-500 dark:hover:text-primary-400">
+              Explore our {{this['link_name']}} <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </a>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+{%- elsif  _level > 1 -%}
+  {%- comment -%} Else output dropdown children or single item {%- endcomment -%}
+  <li  class="{% if _level == 1 %}lg:flex lg:items-center{% endif %} col-span-2 md:col-span-1">
+    <a {% if this['link_url'] == context.location.pathname %}aria-current="page"{% endif %} class="{% if this['link_url'] == context.location.pathname %}
+      {% comment %} Top level current link {% endcomment %}
+      flex p-3 rounded-lg bg-gray-50 dark:bg-gray-700 
+    {% else %}
+      {% comment %} Top level standard link {% endcomment %}
+      flex p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700
+    {% endif %}" {% if this['link_target'] %} target="{{this['link_target']}}"{% endif %} href="{{this['link_url']}}">
+      {% if _level > 1 %}
+        <svg class="mr-2 mt-1 w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+        <div>
+          <div class="font-semibold">{{this['link_name']}}</div>
+          {% comment %} <div class="text-sm font-light text-gray-500 dark:text-gray-400">&nbsp;</div> {% endcomment %}
+        </div>
+      {% else %}
+        {{this['link_name']}}
+      {% endif %}
+    </a>
+  </li>
+{% endif %}
+{% endraw %}

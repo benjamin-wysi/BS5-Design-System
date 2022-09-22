@@ -1,0 +1,7 @@
+{%- raw -%}
+{% if this['category_array'] contains category[1].id %}
+  <li>
+    <a href="/{{this['module_slug']}}/{{this['slug']}}" class="hover:underline">{{this['Question']}}</a>
+  </li>
+{% endif %}
+{% endraw %}

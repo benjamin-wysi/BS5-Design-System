@@ -1,0 +1,5 @@
+{
+  id: 'testimonial-{{forloop.index}}',
+  triggerEl: document.querySelector('#testimonial-{{forloop.index}}-tab'),
+  targetEl: document.querySelector('#testimonial-{{forloop.index}}')
+}{% unless forloop.last %},{% endunless %}

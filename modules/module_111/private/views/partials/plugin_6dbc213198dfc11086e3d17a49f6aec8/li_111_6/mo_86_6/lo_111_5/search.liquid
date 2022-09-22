@@ -1,0 +1,11 @@
+{%- raw -%}
+<form action="{{faq_list_page_url}}"> 
+  <label for="default-search" class="block mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Keyword Search</label>
+  <div class="relative">
+    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+      <svg class="w-6 h-6 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+    </div>
+    <input name="keyword" type="search" id="default-search" class="block p-4 pl-12 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" {% if params.keyword != blank %}placeholder="{{params.keyword}}"{% else %}placeholder="Type keywords to find answers"{% endif %}>
+  </div>
+</form>
+{%- endraw -%}

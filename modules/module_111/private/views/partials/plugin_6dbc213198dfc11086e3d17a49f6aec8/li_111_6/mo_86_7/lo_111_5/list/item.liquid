@@ -1,0 +1,18 @@
+{%- raw -%}
+<figure class="p-6 bg-gray-50 rounded dark:bg-gray-800">
+  <blockquote class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+    {{this['Quote'] | html_safe}}
+  </blockquote>
+    <figcaption class="flex items-center space-x-3">
+      {% if this['Image'] != blank %}
+        <img class="w-9 h-9 rounded-full" src="{{this['Image'] | asset_url}}" alt="{{item.properties.name}}">
+      {% endif %}
+      <div class="space-y-0.5 font-medium dark:text-white">
+        <div>{{this['name']}}</div>
+        {% if this['Job Title'] != blank %}
+          <div class="text-sm font-light text-gray-500 dark:text-gray-400">{{this['Job Title']}} {% if this['Company Name'] != blank %}at {{this['Company Name']}}{% endif %}</div>
+        {% endif %}
+      </div>
+    </figcaption>    
+</figure>
+{%- endraw -%}
