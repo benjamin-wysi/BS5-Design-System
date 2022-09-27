@@ -1,0 +1,32 @@
+{%- raw -%}
+{% assign author_id = this.properties.module_field_3_4 | downcase %}
+{% assign author = author_results.records.results | detect: id: author_id %}
+{% assign author = author | add_hash_key: "Title", author.properties['module_field_6_1'] %}
+{% assign author = author | add_hash_key: "Image", author.properties['module_field_6_4'] %}
+{% assign author = author | add_hash_key: "Image Alt", author.properties['module_field_6_5'] %}
+
+
+ <article class="py-6 text-center">
+    <div class="categories">
+      {% for category in this['category_array'] %}
+        <a href="{{blog_list_page_url}}?category={{context.exports.categories.data[category].id}}" class="bg-primary-100 hover:bg-primary-200 text-primary-800 text-xs font-semibold px-2.5 py-0.5 mt-4 rounded dark:bg-primary-200 dark:text-primary-800 dark:hover:bg-primary-300 mr-2 mb-2">
+          {{context.exports.categories.data[category].name  | replace: " ", "&nbsp;"}}
+        </a>
+      {% endfor %}
+    </div>
+    <h2 class="my-4 text-2xl font-bold tracking-tight text-gray-900 md:text-3xl dark:text-white">
+        <a href="{{this.full_slug}}">{{this['Title']}}</a>
+    </h2>
+    <div class="flex justify-center items-center space-x-4 text-dark-500 dark:text-white sm:space-x-6">
+        <div class="flex items-center space-x-3">
+            {% if author['Image'] != blank %}
+              <img class="w-6 h-6 rounded-full" src="{{author['Image'] | asset_url}}" alt="{{author['Image Alt']}}">
+            {% endif %}
+            <span class="text-lg font-medium text-dark-900 dark:text-white">
+                {{author['Title']}}
+            </span>
+        </div>
+        <span class="text-gray-500 dark:text-gray-400">{{this['release_date'] | date: '%d %B'}}</span>
+    </div>
+</article>  
+{%- endraw -%}
