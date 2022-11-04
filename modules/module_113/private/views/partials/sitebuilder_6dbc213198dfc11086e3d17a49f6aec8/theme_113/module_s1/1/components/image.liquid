@@ -1,0 +1,7 @@
+{%- raw -%}<div class="col-12  mb-5 file">
+  <div class="form-group">
+    <label for="{{field_id}}">File</label>
+    <input {{attributes}} class="form-control" name="{{name}}" id="{{name}}" type="hidden" value="{{value}}">
+    <input class="form-control {{validation}} {% if value != blank %} is-valid {% endif %}" {{validation}} id="{{field_id}}_file" type="file" />
+  </div>
+</div>{%- endraw -%}

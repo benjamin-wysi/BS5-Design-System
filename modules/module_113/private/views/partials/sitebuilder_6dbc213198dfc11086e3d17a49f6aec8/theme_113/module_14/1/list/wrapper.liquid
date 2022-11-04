@@ -1,0 +1,124 @@
+<div class="row">
+	<div class="col-12 col-lg-3">
+		<div class="card mb-4 mb-lg-3 border-0">
+			<div class="card-header bg-transparent">
+				<h5 class="h5 sg-h5 mb-0">Categories</h5>
+			</div>
+			<div class="card-body">
+				{% comment %}The variable products_category just needs to == the id of your root category that contains all Products categories. For the starter kit, we use the following block of liquid to find this automatically.{% endcomment %}
+				{% for category in context.exports.categories.data %}
+					{% if category[1].external_id == "category_57529" %}
+						{% assign products_category = category[1].id %}
+						{% break %}
+					{% endif %}
+				{% endfor %}
+				{% comment %}End of starter kit products_category code.{% endcomment %}
+				{% assign category_map = context.exports.categories.items %}
+				{% assign path_info = context.headers.PATH_INFO %}
+				<ul class="list-unstyled mb-2">
+					{% for category in context.exports.categories.data %}
+						{% if category[1].parent != products_category %}{% continue %}{% endif %}
+						{% assign category_id = category[1].id %}
+						<li class="mb-2">
+							<a href="{{category_map[category_id].full_slug}}" {% if category_map[category_id].full_slug == path_info %}class="active"{% endif %} title="">{{category_map[category_id].name}}</a>
+							<ul class="list-unstyled mt-2 ms-3">
+							{% for category_child in context.exports.categories.data %}
+								{% if category_child[1].parent != category[0] %}{% continue %}{% endif %}
+								{% assign category_id = category_child[1].id %}
+								<li class="mb-2">
+									<a href="{{category_map[category_id].full_slug }}"{% if category_map[category_id].full_slug == path_info %}class="active"{% endif %} title="">{{category_map[category_id].name }}</a>
+									<ul class="list-unstyled mt-2 ms-3">
+										{% for category_grandchild in context.exports.categories.data %}
+											{% if category_grandchild[1].parent != category_child[0] %}{% continue %}{% endif %}
+											{% assign category_id = category_grandchild[1].id %}
+											<li class="mb-2">
+												<a href="{{category_map[category_id].full_slug }}" {% if category_map[category_id].full_slug == path_info %}class="active"{% endif %} title="">{{category_map[category_id].name }}</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</li>
+							{% endfor %}
+							</ul>
+						</li>
+					{% endfor %}
+					<a href="/product-wishlist" {% if '/product-wishlist' == path_info %}class="active"{% endif %} title="product-wishlist">My Wishlist</a>
+				</ul>
+			</div>
+		</div>
+		<div class="card mb-4 mb-lg-3 border-0">
+			<div class="card-header bg-transparent">
+				<h5 class="h5 sg-h5 mb-0">Keyword Search</h5>
+			</div>
+			<div class="card-body">
+				<div class="input-group">
+					<input type="text" class="form-control sg-bg-light border-0" id="sg-product-search" placeholder="Product Name">
+					<div class="input-group-append ms-2">
+						<button class="input-group-text btn btn-outline-primary sg-btn sg-btn-outline-primary" onClick="productSearch()">Search</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card mb-5 mb-lg-0 border-0">
+			<div class="card-header bg-transparent">
+				<h5 class="h5 sg-h5 mb-0">Price Options</h5>
+			</div>
+			<div class="card-body sg-price-control">
+				<h6 class="mb-2">Sort by Price</h6>
+				<select class="mb-4 sg-bg-light border-0" id="sg-sort-price" onChange="controlPrice('sort')">
+					<option value="none" {%- if context.params.sort_order == blank %}selected{%- endif -%}>Select an Option</option>
+					<option value="asc" {%- if context.params.sort_order == 'asc' %}selected{%- endif -%}>Lowest to Highest</option>
+					<option value="desc" {%- if context.params.sort_order == 'desc' %}selected{%- endif -%}>Highest to Lowest</option>
+				</select>
+				<h6 class="mb-2">Filter by Price</h6>
+				{%- function
+					currency_object = "modules/siteglide_ecommerce/ecommerce/functions/currency_object"
+					_model: _model
+					_model_field: 'module_field_14/product'
+				-%}
+				{%- parse_json currency_object -%}{{currency_object}}{%- endparse_json -%}
+				<select class="sg-bg-light border-0" id="sg-filter-price" onChange="controlPrice('filter')">
+					<option value="none" {%- if context.params.range_gt == blank %}selected{%- endif -%}>Any</option>
+					<option value="500,1000" {%- if context.params.range_gt == '500' -%}selected{%- endif -%}>{{currency_object.symbol}}5.00 - {{currency_object.symbol}}10.00</option>
+					<option value="1000,1500" {%- if context.params.range_gt == '1000' -%}selected{%- endif -%}>{{currency_object.symbol}}10.00 - {{currency_object.symbol}}15.00</option>
+					<option value="1500,2000" {%- if context.params.range_gt == '1500' -%}selected{%- endif -%}>{{currency_object.symbol}}15.00 - {{currency_object.symbol}}20.00</option>
+					<option value="2000,2500" {%- if context.params.range_gt == '2000' -%}selected{%- endif -%}>{{currency_object.symbol}}20.00 - {{currency_object.symbol}}25.00</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-9">
+		<div class="row row-cols-1 row-cols-md-3">
+			{%- include 'modules/siteglide_ecommerce/ecommerce/get/get_products', item_layout: 'item' -%}
+		</div>
+	</div>
+</div>
+
+{%- parse_json currency_object -%}{{context.session.currency_object}}{%- endparse_json -%}
+<script>
+	function controlPrice(type) {
+		var location_pathname = location.pathname;
+		if(type == 'filter'){
+			var value = document.getElementById("sg-filter-price").value;
+			if(value==='none'){
+				var ref = location_pathname;
+			}else{
+				value = value.split(',');
+				var ref = location_pathname + "?range_field=module_field_14/product/price/{{currency_object.code_lowercase}}/1&range_gt=" + value[0] + "&range_lt=" + value[1];
+			}
+		}else if(type == 'sort'){
+			var value = document.getElementById("sg-sort-price").value;
+			if(value==='none'){
+				var ref = location_pathname;
+			}else{
+				var ref = location_pathname + "?sort_type=properties.module_field_14/product/price/{{currency_object.code_lowercase}}/1&sort_order=" + value;
+			}
+		}
+		window.location.assign(ref);
+	}
+	function productSearch() {
+		event.preventDefault();
+		var keyword = document.getElementById("sg-product-search").value;
+		var url_string = window.location.pathname+"?keyword="+keyword;
+		location.assign(url_string);
+	}
+</script> 
