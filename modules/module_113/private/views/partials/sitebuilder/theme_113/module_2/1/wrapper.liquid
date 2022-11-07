@@ -1,0 +1,60 @@
+{% raw %}
+<div class="container">
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------Cart URL------ {% endcomment %}
+{% assign cart_url = "/cart" %}
+{% comment %} ------Login URL-------- {% endcomment %}
+{% assign login_url = "/login" %}
+{% comment %} ---End Settings--- {% endcomment %}
+<ul class="navbar-nav d-flex-lg align-items-xl-center flex-grow-1">
+	{%- include 'modules/siteglide_menu/get/get_items', item_layout: 'item' -%}
+</ul>
+<ul class="navbar-nav d-flex-lg align-items-xl-center">
+	<li class="nav-item">
+		<div class="input-group">
+			{% include 'site_search_input'
+				search_placeholder: 'Search'
+				search_input_class: 'form-control rounded header-search'
+				result_page_url: 'search-results'
+			-%}
+		</div>
+	</li>
+	<li class="nav-item">
+		{% if context.current_user != blank %}
+			<div class="dropdown">
+				<a class="btn btn-primary dropdown-toggle sg-btn sg-btn-primary account-btn" type="button" id="userMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user me-2"></i><span class="sr-only">My Account Menu</span><span class="userMenuItem">{{context.current_user.first_name}}</span></a>
+				<ul class="dropdown-menu" aria-labelledby="userMenu">
+					<li class="dropdown-item">
+						<a href="/account" class="nav-link">My Account</a>
+					</li>
+					<li class="dropdown-item">
+						<a href="/product-wishlist" class="nav-link">My Wishlist</a>
+					</li>
+					<li class="dropdown-item">
+						{% capture logout_layout %}{{layout}}/logout{% endcapture %}
+						{%- include 'logout_button', layout: logout_layout -%}
+					</li>
+				</div>
+			</div>
+		{% else %}
+			<a id="userMenuLogin" class="btn btn-primary sg-btn sg-btn-primary py-2" href="{{login_url}}"><i class="fas fa-user me-2"></i>Account</a>
+		{% endif %}
+	</li>
+	<li class="nav-item">
+		{% assign items_in_cart = 0 %}
+		{% if context.session.cart != blank %}
+			{% assign cart = context.session.cart | to_hash | to_hash %}
+			{% for item in cart %}
+				{% assign item_quantity = item[1].quantity | plus: 0 %}
+				{% assign items_in_cart = items_in_cart | plus: item_quantity %}
+			{% endfor %}
+		{% endif %}
+		<a class="nav-link" href="{{cart_url}}"><span class="sr-only">Cart</span><i class="fas fa-shopping-cart"></i>(<span data-s-e-live-cart-quantity>{{items_in_cart}}</span>)</a>
+	</li>
+	<li class="nav-item currencyChanger">
+		{% capture currency_changer_layout %}{{layout}}/currency_changer_wrapper{% endcapture %}
+		{%- include 'ecommerce/currency_changer', layout: currency_changer_layout -%}
+	</li>
+</ul>
+</div>
+{% endraw %}

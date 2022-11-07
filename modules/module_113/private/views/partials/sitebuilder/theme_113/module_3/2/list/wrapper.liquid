@@ -1,0 +1,17 @@
+{% raw %}
+<section class="sg-blog sg-blog-02a sg-bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-lg-9">
+				{%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+				{% if context.exports['module_3'].data.result.total_entries == 0 %}
+					<p>Sorry, we didn't find any search results with your selected filter.</p>
+				{% endif %}
+				{%- include 'modules/siteglide_system/get/get_pagination' -%}
+			</div>
+			{% capture sidebar_layout %}layouts/modules/module_3/{{layout}}/sidebar/wrapper{% endcapture %}
+			{%- include sidebar_layout -%}
+		</div>
+	</div>
+</section>
+{% endraw %}

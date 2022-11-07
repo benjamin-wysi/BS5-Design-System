@@ -1,0 +1,84 @@
+{
+  "theme_113": {
+    "title": "Bootstrap 5 Design System",
+    "enabled": true,
+    "image": "https://res.cloudinary.com/sitegurus/image/upload/v1667818879/modules/module_86/marketing/image_2.png",
+    "thumbnail_logo": "",
+    "description": "NOTE: This theme is offered under an Open Source MIT Licence only. You are free to use it for any projects and collaborate with the community on any improvements.",
+    "css_framework": { 
+      "title": "Bootstrap 5", 
+      "logo": "https://res.cloudinary.com/sitegurus/image/upload/v1653915047/modules/module_86/admin/frameworks/icons/bootstrap-logo.svg", 
+      "docs_url": "https://getbootstrap.com/docs/5.0/getting-started/introduction/", 
+      "show_sitebuilder_tailwind_settings": false, 
+      "show_framework_on_layout_card": true 
+    }, 
+    "layouts": {%- include 'modules/module_113/sitebuilder/theme_113/layout_config' -%},
+    "modules": [  "module_s1",  "module_2",  "module_s2",  "module_3",  "module_s3",  "module_5",  "module_8",  "module_10", "module_12", "module_14"],
+    "approve_all_modules": true,
+    "approved_modules": [],
+    "compatible_themes": ["theme_02"],
+    "theme_not_installable_alone": false,
+    "css_preference_options": {
+      "scss": {
+        "title": "Sass",
+        "default_selected": true,
+        "installable_files": [
+          {
+            "src": "%5Fbootstrap%5Ffunctions",
+            "ext": ".scss"
+          },
+          {
+            "src": "%5Fbootstrap%5Fvariables",
+            "ext": ".scss"
+          },
+          {
+            "src": "%5Fcustom",
+            "ext": ".scss"
+          },
+          {
+            "src": "%5Fcustom-variables",
+            "ext": ".scss"
+          },
+          {
+            "src": "%5Flayouts",
+            "ext": ".scss"
+          },
+          {
+            "src": "main%5Fsrc",
+            "ext": ".scss"
+          },
+          {
+            "src": "%5Fvariables",
+            "ext": ".scss"
+          },
+          {
+            "src": "%5Fstudio",
+            "ext": ".scss"
+          },
+          {
+            "src": "main",
+            "ext": ".min.css",
+            "link_in_template": true
+          }
+        ],
+        "description": "Creates Sass files on your site which you can use via Siteglide CLI."
+      },
+      "min_css": {
+        "title": "Minified CSS",
+        "installable_files": [
+          {
+            "src": "main",
+            "ext": ".min.css",
+            "link_in_template": true
+          },
+          {
+            "src": "custom",
+            "ext": ".css",
+            "link_in_template": true
+          }
+        ],
+        "description": "Creates one minified file containing the framework's CSS code and provides a second unminified custom CSS file which you can use to make custom overrides."
+      }
+    }
+  }
+}
