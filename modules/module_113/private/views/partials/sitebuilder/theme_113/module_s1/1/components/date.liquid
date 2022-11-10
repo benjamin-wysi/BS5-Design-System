@@ -1,4 +1,4 @@
-{%- raw -%}<div class="col-12  mb-5">
+{%- raw -%}<div class="col-12  mb-3">
   <label for="{{field_id}}_display">{{label}}</label>
   <input {{attributes}} id="{{field_id}}" name="{{name}}" type="number" style="display:none" value="{{value}}">
   <input id="{{field_id}}_display" class="form-control  {{validation}} {% if value != blank %} is-valid {% endif %}" {{validation}} type="datetime-local" onchange="document.querySelector('#{{field_id}}').value=new Date(this.value).getTime()/1000">

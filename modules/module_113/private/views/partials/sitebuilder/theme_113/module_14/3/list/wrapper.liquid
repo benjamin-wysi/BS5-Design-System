@@ -1,4 +1,12 @@
 {% raw %}
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------ Get Quote URL ------ {% endcomment %}
+{% assign get_quote_url = "/quote" %}
+{% comment %} ------ Checkout URL ------ {% endcomment %}
+{% assign checkout_url = "/checkout" %}
+{% comment %} ------ Shop Home URL ------ {% endcomment %}
+{% assign shop_home_url = "/" %}
+{% comment %} ---End Settings--- {% endcomment %}
 <section class="sg-ecommerce sg-ecommerce-cart-01">
 	<div class="container">
 		<div class="row">
@@ -27,10 +35,10 @@
 					</table>
 					<div class="row">
 						<div class="col-12 col-lg-4">
-							{% include 'ecommerce/shipping_option', layout: "sg-product-shipping-01" %}
+							{% include 'ecommerce/shipping_option', layout: layout %}
 						</div>
 						<div class="col-12 col-lg-4">
-							{% include 'ecommerce/discount_code', layout: 'sg-product-discount-01' %}
+							{% include 'ecommerce/discount_code', layout: layout %}
 						</div>
 						<div class="col-12 col-lg-4 text-center text-md-end mb-5">
 							<p class="text-uppercase mb-3"><strong>TOTAL QUANTITY:</strong> {{context.exports.cart_total_quantity.data}}</p>
@@ -41,17 +49,17 @@
 						</div>
 					</div>
 					<div class="d-flex flex-wrap justify-content-center justify-content-lg-between">
-						<a class="btn btn-secondary sg-btn sg-btn-secondary px-4 py-2 mb-3" href="/products">Continue Shopping</a>
+						<a class="btn btn-secondary sg-btn sg-btn-secondary px-4 py-2 mb-3" href="{{shop_home_url}}">Continue Shopping</a>
 						<div class="d-flex flex-wrap justify-content-center">
 							<button class="btn btn-secondary sg-btn sg-btn-secondary px-4 py-2 mb-3 me-sm-3" onclick="s_e_cart_empty(true)">Empty cart</button>
 							<button class="btn btn-primary sg-btn sg-btn-primary px-4 py-2 mb-3 me-sm-3" onclick="s_e_cart_update(true,'{{context.authenticity_token}}')">Update cart</button>
-							<a class="btn btn-primary sg-btn sg-btn-primary px-4 py-2 mb-3 me-sm-3" href="/quote">Get a Quote</a>
-							<a class="btn btn-primary sg-btn sg-btn-primary px-4 py-2 mb-3 me-sm-3" href="/checkout">Proceed to checkout</a>
+							<a class="btn btn-primary sg-btn sg-btn-primary px-4 py-2 mb-3 me-sm-3" href="{{get_quote_url}}">Get a Quote</a>
+							<a class="btn btn-primary sg-btn sg-btn-primary px-4 py-2 mb-3 me-sm-3" href="{{checkout_url}}">Proceed to checkout</a>
 						</div>
 					</div>
 				{% else %}
 					<h2 class="h5 sg-h5 mb-3"><span class="sg-icon"><i class="fas fa-shopping-cart me-2"></i></span>Sorry! Your Cart is empty.</h2>
-					<a href="/products" class="btn btn-primary sg-btn sg-btn-primary px-4 py-2">Continue Shopping</a>
+					<a href="{{shop_home_url}}" class="btn btn-primary sg-btn sg-btn-primary px-4 py-2">Continue Shopping</a>
 				{% endif %}
 			</div>
 		</div>

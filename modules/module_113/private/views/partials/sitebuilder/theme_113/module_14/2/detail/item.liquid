@@ -10,7 +10,7 @@
 			<div class="row">
 				{% for attribute in this.product_attributes %}
 					{% if attribute.properties.enabled == true %}
-						{% include 'ecommerce/product_attributes', name: attribute.properties.name, layout: 'sg-product-attribute-01' -%}
+						{% include 'ecommerce/product_attributes', name: attribute.properties.name, layout: layout -%}
 					{% endif %}
 				{% endfor %}
 				<div class="col-12 col-md-6">
@@ -42,12 +42,12 @@
 	{% endif %}
 	{% comment %} Toggle wishlist {% endcomment %}
 	<div class="mb-3">
-		{% include 'user_favourites_toggle', layout: 'sg-toggle-wishlist-01' -%}
+		
+		{% include 'user_favourites_toggle', layout: layout -%}
 	</div>
 	{% comment %} Add to Cart button {% endcomment %}
-	{% include 'ecommerce/cart_add', component_layout: "sg-product-add-01" -%}
-	{% comment %} Buy now button {% endcomment %}
-	{% include 'ecommerce/cart_add', component_layout: "sg-product-checkout-01" -%}
+	{% include 'ecommerce/cart_add', component_layout: layout -%}
+	
 </div>
 </div>
 <script>
