@@ -1,9 +1,0 @@
-{%- raw -%}<fieldset class="mb-6">
-  <legend class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{label}}</legend>
-  <div {{attributes}} class="boolean {{validation}} flex items-center mb-4">
-    <input {{attributes}} {% if value == true or value == "true" %}checked{% endif %} class="w-4 h-4 text-info-600 bg-gray-100 rounded border-gray-300 focus:ring-info-500 dark:focus:ring-info-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" type="checkbox" name="{{name}}" id="{{name}}_true" value="true">
-    <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="{{name}}_true">true</label>
-  </div>
-</fieldset>
-
-{%- endraw -%}

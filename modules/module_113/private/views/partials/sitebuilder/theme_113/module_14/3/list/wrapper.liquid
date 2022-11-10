@@ -1,0 +1,69 @@
+{% raw %}
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------ Get Quote URL ------ {% endcomment %}
+{% assign get_quote_url = "/quote" %}
+{% comment %} ------ Checkout URL ------ {% endcomment %}
+{% assign checkout_url = "/checkout" %}
+{% comment %} ------ Shop Home URL ------ {% endcomment %}
+{% assign shop_home_url = "/" %}
+{% comment %} ---End Settings--- {% endcomment %}
+<section class="sg-ecommerce sg-ecommerce-cart-01">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				{% comment %} Check if Cart is empty {% endcomment %}
+				{% assign cart_parsed = context.session.cart | parse_json | parse_json %}
+				{% assign items_in_cart = 0 %}
+				{% for item in cart_parsed %}
+					{% assign item_quantity = item[1].quantity | plus: 0 %}
+					{% assign items_in_cart = items_in_cart | plus: item_quantity %}
+				{% endfor %}
+				{% if items_in_cart != 0 %}
+					<table class="w-100 mb-4">
+						<thead>
+							<tr>
+								<th scope="col" class="py-4 pe-4 text-uppercase">Items</th>
+								<th scope="col" class="py-4 pe-4 text-uppercase">Attributes</th>
+								<th scope="col" class="py-4 pe-4 text-uppercase">Quantity</th>
+								<th scope="col" class="py-4 pe-4 text-uppercase">Price</th>
+								<th scope="col" class="py-4 pe-4">&nbsp;</th>
+								</tr>
+						</thead>
+						<tbody>
+							{%- include 'modules/siteglide_ecommerce/ecommerce/get/get_products', item_layout: 'item' -%}
+						</tbody>
+					</table>
+					<div class="row">
+						<div class="col-12 col-lg-4">
+							{% include 'ecommerce/shipping_option', layout: layout %}
+						</div>
+						<div class="col-12 col-lg-4">
+							{% include 'ecommerce/discount_code', layout: layout %}
+						</div>
+						<div class="col-12 col-lg-4 text-center text-md-end mb-5">
+							<p class="text-uppercase mb-3"><strong>TOTAL QUANTITY:</strong> {{context.exports.cart_total_quantity.data}}</p>
+							<p class="text-uppercase"><strong>SHIPPING COST:</strong> {% include 'ecommerce/price_shipping', format_type: 'formatted' -%}</p>
+							<p class="text-uppercase"><strong>TOTAL PRICE BEFORE TAX:</strong> {% include 'ecommerce/price_total_before_tax', format_type: 'formatted' -%}</p>
+							<p class="text-uppercase"><strong>TOTAL TAX AMOUNT:</strong> {% include 'ecommerce/price_total_tax_amount', format_type: 'formatted' -%}</p>
+							<p class="text-uppercase"><strong>FINAL COST:</strong> {% include 'ecommerce/price_total', format_type: 'formatted' -%}</p>
+						</div>
+					</div>
+					<div class="d-flex flex-wrap justify-content-center justify-content-lg-between">
+						<a class="btn btn-secondary sg-btn sg-btn-secondary px-4 py-2 mb-3" href="{{shop_home_url}}">Continue Shopping</a>
+						<div class="d-flex flex-wrap justify-content-center">
+							<button class="btn btn-secondary sg-btn sg-btn-secondary px-4 py-2 mb-3 me-sm-3" onclick="s_e_cart_empty(true)">Empty cart</button>
+							<button class="btn btn-primary sg-btn sg-btn-primary px-4 py-2 mb-3 me-sm-3" onclick="s_e_cart_update(true,'{{context.authenticity_token}}')">Update cart</button>
+							<a class="btn btn-primary sg-btn sg-btn-primary px-4 py-2 mb-3 me-sm-3" href="{{get_quote_url}}">Get a Quote</a>
+							<a class="btn btn-primary sg-btn sg-btn-primary px-4 py-2 mb-3 me-sm-3" href="{{checkout_url}}">Proceed to checkout</a>
+						</div>
+					</div>
+				{% else %}
+					<h2 class="h5 sg-h5 mb-3"><span class="sg-icon"><i class="fas fa-shopping-cart me-2"></i></span>Sorry! Your Cart is empty.</h2>
+					<a href="{{shop_home_url}}" class="btn btn-primary sg-btn sg-btn-primary px-4 py-2">Continue Shopping</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endraw %}
