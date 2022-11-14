@@ -1,0 +1,17 @@
+We welcome contributions to this open-source project. 
+
+If you'd like to contribute to the main Siteglide Theme Module, the master branch is protected, so for new contributions, please create a new branch and create a pull request containing the changes you'd like to make. 
+
+If you'd like to build your own version of the module entirely, please create a fork and register as your own Module in the Siteglide Marketplace.
+
+## Changelog
+
+### 1.0.2
+
+- Updated SCSS files to use /dist and /src folders.
+- Improved Header Layout responsiveness
+- Added LinkedIn to the Footer Layout
+
+### 1.0.1
+
+- Initial Release

@@ -35,6 +35,13 @@
               </a>
             </li>
           {% endif %}
+          {% if context.exports.company_information.properties.linkedin_account != blank %}
+            <li class="sg-icon sg-icon-md mx-2 mx-md-3">
+              <a href="{{context.exports.company_information.properties.linkedin_account}}" title="Find us on LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </li>
+          {% endif %}
 				</ul>
 			</div>
 		</div>
