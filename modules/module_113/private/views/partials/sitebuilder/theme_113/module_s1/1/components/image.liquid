@@ -1,7 +1,14 @@
 {%- raw -%}<div class="col-12  mb-3 file">
   <div class="form-group">
-    <label for="{{field_id}}">File</label>
+    <label for="{{field_id}}">{{label}}</label>
     <input {{attributes}} class="form-control" name="{{name}}" id="{{name}}" type="hidden" value="{{value}}">
     <input class="form-control {{validation}} {% if value != blank %} is-valid {% endif %}" {{validation}} id="{{field_id}}_file" type="file" />
+    <img class="img-thumbnail mt-2 w-25 h-auto" {% if value != blank %}src="{{value | asset_url}}"{% endif %} data-file-preview="{{field_id}}_file">
   </div>
-</div>{%- endraw -%}
+</div>
+<script>
+  if(typeof window.previewFile == 'function') {
+    document.querySelector('#{{form_html_id}} #{{field_id}}_file').addEventListener('change', window.previewFile);
+  }
+</script>
+{%- endraw -%}
