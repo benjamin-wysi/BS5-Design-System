@@ -25,39 +25,43 @@
   opacity: 100%;
 }
 
-form[data-s-form-progress='0'] .progress-bar{
+#{{form_html_id}}:not([data-s-form-progress]) .progress,#{{form_html_id}}[data-s-form-progress='0'] .progress {
+  display: none;
+}
+
+#{{form_html_id}}[data-s-form-progress='0'] .progress-bar{
 	width: 0%;
 }
 
-form[data-s-form-progress='1'] .progress-bar{
+#{{form_html_id}}[data-s-form-progress='1'] .progress-bar{
 	width: 10%;
 }
 
-form[data-s-form-progress='2'] .progress-bar{
+#{{form_html_id}}[data-s-form-progress='2'] .progress-bar{
 	width: 20%;
 }
 
-form[data-s-form-progress='3'] .progress-bar{
+#{{form_html_id}}[data-s-form-progress='3'] .progress-bar{
 	width: 30%;
 }
 
-form[data-s-form-progress='4'] .progress-bar{
+#{{form_html_id}}[data-s-form-progress='4'] .progress-bar{
 	width: 40%;
 }
 
-form[data-s-form-progress='5'] .progress-bar{
+#{{form_html_id}}[data-s-form-progress='5'] .progress-bar{
 	width: 50%;
 }
 
-form[data-s-form-progress='6'] .progress-bar{
+#{{form_html_id}}[data-s-form-progress='6'] .progress-bar{
 	width: 60%;
 }
 
-form[data-s-form-progress='7'] .progress-bar{
+#{{form_html_id}}[data-s-form-progress='7'] .progress-bar{
 	width: 80%;
 }
 
-form[data-s-form-progress='8'] .progress-bar{
+#{{form_html_id}}[data-s-form-progress='8'] .progress-bar{
 	width: 100%;
 }
 </style>
