@@ -6,6 +6,10 @@ If you'd like to build your own version of the module entirely, please create a 
 
 ## Changelog
 
+### 1.1.0
+
+- Added support for Sliders Module
+
 ### 1.0.2
 
 - Updated SCSS files to use /dist and /src folders.
