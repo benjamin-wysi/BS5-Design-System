@@ -8,7 +8,7 @@ If you'd like to build your own version of the module entirely, please create a 
 
 ### 1.1.0
 
-- Added support for Sliders Module
+- Added support for Sliders Module (you will need to update to version 4.4.0 of SiteBuilder to use this.)
 
 ### 1.0.2
 
