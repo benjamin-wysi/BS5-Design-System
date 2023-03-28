@@ -1,5 +1,6 @@
 {
   "workbench.colorCustomizations": {
 		"activityBar.background": "#041c48"
-  }
+  },
+  "liquid.format.enable": false
 }

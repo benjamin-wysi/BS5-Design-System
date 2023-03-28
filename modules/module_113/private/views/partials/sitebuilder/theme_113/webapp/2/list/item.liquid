@@ -1,0 +1,20 @@
+{% raw %}
+  {% assign forloop_index = forloop.index | modulo: 2 %}
+  {% if forloop_index == 0 %}
+    <div class="col-12 col-lg-5 mb-5 mb-lg-0">
+        <h2>{{field_map['Title']}}</h2>
+        {% if field_map['Description Short 1'] != blank %}<p>{{field_map['Description Short 1']}}</p>{% endif %}
+    </div>
+    <div class="col-12 col-lg-6 offset-lg-1">
+        {% if field_map['Image'] != blank %}<img class="rounded-3 mw-100" src="{{field_map['Image'] | asset_url }}" alt="Image 1" width="636">{% endif %}
+    </div>
+  {% else %}
+     <div class="col-12 col-lg-6 offset-lg-1">
+        {% if field_map['Image'] != blank %}<img class="rounded-3 mw-100" src="{{field_map['Image'] | asset_url }}" alt="Image 1" width="636">{% endif %}
+    </div>
+    <div class="col-12 col-lg-5 mb-5 mb-lg-0">
+        <h2>{{field_map['Title']}}</h2>
+        {% if field_map['Description Short 1'] != blank %}<p>{{field_map['Description Short 1']}}</p>{% endif %}
+    </div>
+  {% endif %}
+{% endraw %}

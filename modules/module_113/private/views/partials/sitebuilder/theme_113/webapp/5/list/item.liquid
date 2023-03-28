@@ -1,0 +1,37 @@
+{% raw %}
+    {%- function detail_page_valid = "modules/module_86/front_end/functions/v1/detail_page_valid", fc_data: fc_data, full_slug: this.full_slug -%}
+    {% assign forloop_index = forloop.index | modulo: 2 %}
+    {% if forloop_index == 0 %}
+        <div class="col-12 col-lg-4 mb-5 mb-lg-0">
+            {% if field_map['Image'] != blank %}
+                <img class="rounded-3 mw-100" src="{{field_map['Image'] | asset_url }}" alt="{{field_map['Title']}}" width="416">
+            {% endif %}
+        </div>
+        <div class="col-12 col-lg-7 offset-lg-1">
+            <p class="text-uppercase">{{field_map['Subtitle']}}</p>
+            <h2>{% if detail_page_valid %}<a href="{{this.full_slug}}">{% endif %}{{field_map['Title 1']}}{% if detail_page_valid %}</a>{% endif %}</h2>
+            {% if field_map['Description Short'] != blank %}
+                <p>{{field_map['Description Short']}}</p>
+            {% endif %}
+            {% if field_map['Button Name'] != blank and field_map['Button Link'] != blank %}
+                <a class="btn btn-primary sg-btn sg-btn-primary btn-lg sg-btn-lg" href="/{{field_map['Button Link']}}" title="{{field_map['Button Name']}}">{{field_map['Button Name']}}</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="col-12 col-lg-7 offset-lg-1">
+            <p class="text-uppercase">{{field_map['Subtitle']}}</p>
+            <h2>{% if detail_page_valid %}<a href="{{this.full_slug}}">{% endif %}{{field_map['Title 1']}}{% if detail_page_valid %}</a>{% endif %}</h2>
+            {% if field_map['Description Short'] != blank %}
+                <p>{{field_map['Description Short']}}</p>
+            {% endif %}
+            {% if field_map['Button Name'] != blank and field_map['Button Link'] != blank %}
+                <a class="btn btn-primary sg-btn sg-btn-primary btn-lg sg-btn-lg" href="/{{field_map['Button Link']}}" title="{{field_map['Button Name']}}">{{field_map['Button Name']}}</a>
+            {% endif %}
+        </div>    
+        <div class="col-12 col-lg-4 mb-5 mb-lg-0">
+            {% if field_map['Image'] != blank %}
+                <img class="rounded-3 mw-100" src="{{field_map['Image'] | asset_url }}" alt="{{field_map['Title']}}" width="416">
+            {% endif %}
+        </div>
+    {% endif %}
+{% endraw %}

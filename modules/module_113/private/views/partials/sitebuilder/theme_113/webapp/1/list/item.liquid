@@ -1,0 +1,16 @@
+{% raw %}
+    {%- function detail_page_valid = "modules/module_86/front_end/functions/v1/detail_page_valid", fc_data: fc_data, full_slug: this.full_slug -%}
+    <h2 class="text-center">{% if detail_page_valid %}<a href="{{this.full_slug}}">{% endif %}{{field_map['Title']}}{% if detail_page_valid %}</a>{% endif %}</h2>
+    <div class="row">
+    {% if field_map['Description Short 1'] != blank %}
+        <div class="col-12 col-md-6">
+            <p style="column-count: 2;">{{field_map['Description Short 1']}}</p>    
+        </div>
+    {% endif %}
+    {% if field_map['Description Short 2'] != blank %}
+        <div class="col-12 col-md-6">
+            <p style="column-count: 2;">{{field_map['Description Short 2']}}</p>   
+        </div>
+    {% endif %}
+    </div>
+{% endraw %}

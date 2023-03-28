@@ -1,0 +1,31 @@
+{% raw %}
+    {%- function detail_page_valid = "modules/module_86/front_end/functions/v1/detail_page_valid", fc_data: fc_data, full_slug: this.full_slug -%}
+<div class="col mb-5 mb-lg-0">
+    <h2>{% if detail_page_valid %}<a href="{{this.full_slug}}">{% endif %}{{field_map['Title 1']}}{% if detail_page_valid %}</a>{% endif %}</h2>
+    {% if field_map['Description Short 1'] != blank %}
+        <p>{{field_map['Description Short 1']}}</p>
+    {% endif %}
+    {% if field_map['Link 1'] != blank and field_map['Link Text 1'] != blank %}
+        <p><a href="/{{field_map['Link 1']}}" title="{{field_map['Link Text 1']}}">{{field_map['Link Text 1']}}</a></p>
+    {% endif %}
+</div>
+<div class="col mb-5 mb-lg-0">
+    <h2>{% if detail_page_valid %}<a href="{{this.full_slug}}">{% endif %}{{field_map['Title 2']}}{% if detail_page_valid %}</a>{% endif %}</h2>
+    {% if field_map['Description Short 2'] != blank %}
+        <p>{{field_map['Description Short 2']}}</p>
+    {% endif %}
+    {% if field_map['Link 2'] != blank and field_map['Link Text 2'] != blank %}
+        <p><a href="/{{field_map['Link 2']}}" title="{{field_map['Link Text 2']}}">{{field_map['Link Text 2']}}</a></p>
+    {% endif %}
+</div>
+<div class="col mb-5 mb-lg-0">
+    <h2>{% if detail_page_valid %}<a href="{{this.full_slug}}">{% endif %}{{field_map['Title 3']}}{% if detail_page_valid %}</a>{% endif %}</h2>
+    {% if field_map['Description Short 3'] != blank %}
+        <p>{{field_map['Description Short 3']}}</p>
+    {% endif %}
+    {% if field_map['Link 3'] != blank and field_map['Link Text 3'] != blank %}
+        <p><a href="/{{field_map['Link 3']}}" title="{{field_map['Link Text 3']}}">{{field_map['Link Text 3']}}</a></p>
+    {% endif %}
+</div>
+{% endraw %}
+    
